@@ -1,4 +1,4 @@
 package com.example.springpractice.mapper;
 
-public class BoardMapper {
+public interface BoardMapper {
 }

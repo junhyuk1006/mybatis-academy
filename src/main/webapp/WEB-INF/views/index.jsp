@@ -7,53 +7,31 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
-    <script>
-        function showLoginForm(){
-            document.getElementById('login-form').style.display = 'block';
-            document.getElementById('join-form').style.display = 'none';
-            document.getElementById('form-title').innerText = 'Login';
+    <script type="text/javascript">
+        function showAlert(message) {
+            alert(message);
         }
-
-        function showJoinForm(){
-            document.getElementById('join-form').style.display = 'block';
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('form-title').innerText = 'Join';
-        }
-
-        function handelJoinResponse(){
-            showLoginForm();
-            alert("회원가입에 성공하였습니다!!");
-        }
-
     </script>
 </head>
 <body>
 <div class="container">
     <div class="login-box">
         <h2 id="form-title">Login</h2>
-        <form id="login-form" action="${pageContext.request.contextPath}/home" method="post" style="display: block">
-            <div class="textbox">
-                <input type="text" placeholder="Username" name="username" required>
-            </div>
-            <div class="textbox">
-                <input type="password" placeholder="Password" name="password" required>
-            </div>
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn" onclick="showJoinForm()">Join</button>
-        </form>
-        <form id="join-form" action="${pageContext.request.contextPath}" method="post" style="display: none;">
+        <form id="login-form" action="${pageContext.request.contextPath}/login" method="post" style="display: block">
             <div class="textbox">
                 <input type="text" placeholder="Username" name="username" value="${user.username}" required>
             </div>
             <div class="textbox">
                 <input type="password" placeholder="Password" name="password" value="${user.password}" required>
             </div>
-            <div class="textbox">
-                <input type="email" placeholder="Email" name="email" value="${user.email}" required>
-            </div>
-            <button type="submit" class="btn" onclick="handelJoinResponse()">Join</button>
-            <button type="button" class="btn" onclick="showLoginForm()">Back to Login</button>
+            <button type="submit" class="btn">로그인</button>
+            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/join'">회원가입</button>
         </form>
+        <c:if test="${not empty message}">
+            <script type="text/javascript">
+                showAlert("${message}");
+            </script>
+        </c:if>
     </div>
 </div>
 </body>
