@@ -17,4 +17,12 @@ public class UserService {
     public User login(User user){
         return userMapper.loginUser(user);
     }
+
+    public int update(User user){
+        return userMapper.updateUser(user);
+    }
+
+    public int delete(User user){
+        return userMapper.deleteUser(user);
+    }
 }

@@ -1,16 +1,28 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-07-30
-  Time: 오후 5:36
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-<h2>ㅎㅇ</h2>
+<div class="container">
+    <h2>Welcome</h2>
+    <button class="button" onclick="location.href='${pageContext.request.contextPath}/mypage'">My Page</button>
+    <button class="button" onclick="location.href='${pageContext.request.contextPath}/board'">게시판</button>
+    <button class="button" onclick="location.href='${pageContext.request.contextPath}/logout'">로그아웃</button>
+</div>
 </body>
 </html>

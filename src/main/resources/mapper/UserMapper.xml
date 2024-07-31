@@ -9,4 +9,10 @@
     <select id="loginUser" parameterType="com.example.springpractice.dto.User">
         select * from user where username = #{username} and password = #{password}
     </select>
+    <update id="updateUser" parameterType="com.example.springpractice.dto.User">
+        update user set username = #{username}, password = #{password} , email = #{email} where id= #{id}
+    </update>
+    <delete id="deleteUser" parameterType="com.example.springpractice.dto.User">
+        delete from user where username = #{username}
+    </delete>
 </mapper>

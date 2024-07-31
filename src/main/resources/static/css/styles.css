@@ -61,3 +61,10 @@ body {
     background: #fff;
     color: #000;
 }
+label {
+    display: block;
+    color: white;
+    font-size: 18px;
+    text-align: left;
+    margin-bottom: 5px;
+}
