@@ -17,13 +17,13 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @GetMapping("/login")
+    @GetMapping("/")
     public String loginPage(Model model){
         model.addAttribute("user", new User());
-        return "index";
+        return "user/index";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/")
     public String login(User user, HttpServletRequest request, Model model){
         User loginUser = service.select(user);
         if(loginUser != null) {
@@ -33,14 +33,14 @@ public class UserController {
         }
         else {
             model.addAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
-            return "index";
+            return "user/index";
         }
     }
 
     @GetMapping("/join")
     public String joinPage(Model model){
         model.addAttribute("user", new User());
-        return "join";
+        return "user/join";
     }
 
     @PostMapping("/join")
@@ -51,16 +51,16 @@ public class UserController {
              result = service.insert(user);
             if(result == 1){
                 redirectAttributes.addFlashAttribute("successMessage","회원가입 완료되었습니다!");
-                return "redirect:/login";
+                return "redirect:/";
             }
             else {
                 model.addAttribute("message","회원가입에 실패하였습니다");
-                return "join";
+                return "user/join";
             }
         }
         else{
             model.addAttribute("message","username이 중복되었습니다");
-            return "join";
+            return "user/join";
         }
     }
 
@@ -68,9 +68,9 @@ public class UserController {
     public String home(HttpSession session){
         User user = (User)session.getAttribute("user");
         if(user == null){
-            return "redirect:/login";
+            return "redirect:/";
         }
-        return "home";
+        return "user/home";
     }
 
     @GetMapping("/mypage")
@@ -78,9 +78,9 @@ public class UserController {
         User user = (User)session.getAttribute("user");
         model.addAttribute("user", user);
         if(user == null){
-            return "redirect:/login";
+            return "redirect:/";
         }
-        return "mypage";
+        return "user/mypage";
     }
 
     @GetMapping("/edit")
@@ -88,9 +88,9 @@ public class UserController {
         User user = (User)session.getAttribute("user");
         model.addAttribute("user", user);
         if(user == null){
-            return "redirect:/login";
+            return "redirect:/";
         }
-        return "edit";
+        return "user/edit";
     }
 
     @PostMapping("/edit")
@@ -103,14 +103,14 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message","수정이 완료되었습니다!");
             return "redirect:/mypage";
         }
-        return "edit";
+        return "user/edit";
     }
 
     // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // 세션 무효화
-        return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        return "redirect:/"; // 로그인 페이지로 리다이렉트
     }
 
     @GetMapping("/delete")
@@ -120,7 +120,7 @@ public class UserController {
         if(i == 1){
             session.invalidate();
             model.addAttribute("message","회원삭제에 성공하였습니다.");
-            return "delete";
+            return "user/delete";
         }
         return "redirect:/mypage";
     }

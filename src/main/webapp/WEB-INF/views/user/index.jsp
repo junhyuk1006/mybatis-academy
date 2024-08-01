@@ -17,7 +17,7 @@
 <div class="container">
     <div class="login-box">
         <h2 id="form-title">Login</h2>
-        <form id="login-form" action="${pageContext.request.contextPath}/login" method="post" style="display: block">
+        <form id="login-form" action="${pageContext.request.contextPath}/" method="post" style="display: block">
             <div class="textbox">
                 <input type="text" placeholder="Username" name="username" value="${user.username}" required>
             </div>

@@ -21,7 +21,7 @@
 <div class="container">
     <h2>Welcome</h2>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/mypage'">My Page</button>
-    <button class="button" onclick="location.href='${pageContext.request.contextPath}/board'">게시판</button>
+    <button class="button" onclick="location.href='${pageContext.request.contextPath}/boardList'">게시판</button>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/logout'">로그아웃</button>
 </div>
 </body>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
     <script type="text/javascript">
         function redirectToLogin() {
-            window.location.href = '${pageContext.request.contextPath}/login';
+            window.location.href = '${pageContext.request.contextPath}/';
         }
     </script>
     <style>

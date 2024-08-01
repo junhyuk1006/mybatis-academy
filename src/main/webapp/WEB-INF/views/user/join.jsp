@@ -36,7 +36,7 @@
                 <input type="email" placeholder="Email" name="email" value="${user.email}" required>
             </div>
             <button type="submit" class="btn">회원가입</button>
-            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 화면으로</button>
+            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/'">로그인 화면으로</button>
         </form>
         <c:if test="${not empty message}">
             <div class="alert">
