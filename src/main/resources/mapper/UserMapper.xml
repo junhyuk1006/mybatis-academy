@@ -6,7 +6,7 @@
     <insert id="insertUser" parameterType="com.example.springpractice.dto.User">
         insert into user(username,password,email) values (#{username},#{password},#{email})
     </insert>
-    <select id="loginUser" parameterType="com.example.springpractice.dto.User">
+    <select id="selectUser" parameterType="com.example.springpractice.dto.User">
         select * from user where username = #{username} and password = #{password}
     </select>
     <update id="updateUser" parameterType="com.example.springpractice.dto.User">

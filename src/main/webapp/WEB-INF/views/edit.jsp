@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <div class="login-box">
-        <h2>Join</h2>
+        <h2>회원정보 수정</h2>
         <form action="${pageContext.request.contextPath}/edit" method="post">
             <div class="textbox">
                 <input type="text" placeholder="Username" name="username" value="${user.username}" required>

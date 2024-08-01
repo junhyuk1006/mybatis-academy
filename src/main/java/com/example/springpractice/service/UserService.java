@@ -10,12 +10,12 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public int join(User user){
+    public int insert(User user){
         return userMapper.insertUser(user);
     }
 
-    public User login(User user){
-        return userMapper.loginUser(user);
+    public User select(User user){
+        return userMapper.selectUser(user);
     }
 
     public int update(User user){

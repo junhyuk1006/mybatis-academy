@@ -32,6 +32,11 @@
                 showAlert("${message}");
             </script>
         </c:if>
+        <c:if test="${not empty successMessage}">
+            <script type="text/javascript">
+                showAlert("${successMessage}");
+            </script>
+        </c:if>
     </div>
 </div>
 </body>
