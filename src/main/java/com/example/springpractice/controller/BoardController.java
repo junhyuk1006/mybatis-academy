@@ -20,4 +20,9 @@ public class BoardController {
     public String add(){
         return "redirect:/boardList";
     }
+
+    @GetMapping("/myBoardList")
+    public String myBoard() {
+        return "board/myBoardList";
+    }
 }

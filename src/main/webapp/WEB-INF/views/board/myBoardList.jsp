@@ -19,10 +19,8 @@
 </head>
 <body>
 <div class="container">
-    <h2>게시물 목록</h2>
-    <button class="button" onclick="location.href='${pageContext.request.contextPath}/addBoard'">게시글 등록</button>
-    <button class="button" onclick="location.href='${pageContext.request.contextPath}/myBoardList'">내 게시물</button>
-    <button class="button" onclick="location.href='${pageContext.request.contextPath}/home'">홈으로</button>
+    <h2>내가 쓴 게시물 목록</h2>
+    <button class="button" onclick="location.href='${pageContext.request.contextPath}/boardList'">목록으로</button>
 </div>
 </body>
 </html>
