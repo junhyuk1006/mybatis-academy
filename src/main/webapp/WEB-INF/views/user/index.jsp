@@ -19,10 +19,10 @@
         <h2 id="form-title">Login</h2>
         <form id="login-form" action="${pageContext.request.contextPath}/" method="post" style="display: block">
             <div class="textbox">
-                <input type="text" placeholder="Username" name="username" value="${user.username}" required>
+                <input type="text" placeholder="Username" name="username" required>
             </div>
             <div class="textbox">
-                <input type="password" placeholder="Password" name="password" value="${user.password}" required>
+                <input type="password" placeholder="Password" name="password" required>
             </div>
             <button type="submit" class="btn">로그인</button>
             <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/join'">회원가입</button>

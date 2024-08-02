@@ -3,5 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springpractice.mapper.BoardMapper">
-    <!-- 매퍼 설정을 여기에 추가 -->
+    <insert id="insertBoard" parameterType="com.example.springpractice.dto.Board">
+        insert into board(user_id,title,content) values (#{userId},#{title},#{content})
+    </insert>
+    <select id="getBoardList" parameterType="com.example.springpractice.dto.Board">
+        select id,title,content,user_id as userId,create_at as time from board
+    </select>
 </mapper>

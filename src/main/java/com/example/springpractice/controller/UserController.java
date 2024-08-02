@@ -18,8 +18,7 @@ public class UserController {
     private UserService service;
 
     @GetMapping("/")
-    public String loginPage(Model model){
-        model.addAttribute("user", new User());
+    public String loginPage(){
         return "user/index";
     }
 
@@ -38,8 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/join")
-    public String joinPage(Model model){
-        model.addAttribute("user", new User());
+    public String joinPage(){
         return "user/join";
     }
 
@@ -124,4 +122,6 @@ public class UserController {
         }
         return "redirect:/mypage";
     }
+
+    // 로그 , 트랜잭션 , put
 }

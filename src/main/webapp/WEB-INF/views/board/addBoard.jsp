@@ -15,11 +15,11 @@
         <form action="${pageContext.request.contextPath}/addBoard" method="post">
             <div class="textbox">
                 <label for="title">제목</label>
-                <input type="text" placeholder="title" name="title" value="${board.title}" required>
+                <input type="text" placeholder="title" name="title" required>
             </div>
             <div class="textbox">
                 <label for="content">내용</label>
-                <textarea id="content" placeholder="content" name="content" required>${board.content}</textarea>
+                <textarea id="content" placeholder="content" name="content" required></textarea>
             </div>
             <button type="submit" class="btn">게시글 등록</button>
             <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/boardList'">목록으로</button>
