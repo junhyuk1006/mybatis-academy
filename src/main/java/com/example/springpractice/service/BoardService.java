@@ -20,4 +20,18 @@ public class BoardService {
     public List<Board> getBoardList(){
         return boardMapper.getBoardList();
     }
+
+    public List<Board> getMyBoardList(int userId){return boardMapper.getMyBoardList(userId);}
+
+    public Board getboard(int id) {
+        return boardMapper.getBoard(id);
+    }
+
+    public int updateBoard(Board board){
+        return boardMapper.updateBoard(board);
+    }
+
+    public int deleteBoard(int id){
+        return boardMapper.deleteBoard(id);
+    }
 }

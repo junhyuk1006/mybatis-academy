@@ -28,6 +28,11 @@
             background-color: #f5f5f5;
         }
     </style>
+    <script type="text/javascript">
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -51,6 +56,11 @@
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/addBoard'">게시글 등록</button>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/myBoardList'">내 게시물</button>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/home'">홈으로</button>
+    <c:if test="${not empty successMessage}">
+        <script type="text/javascript">
+            showAlert("${successMessage}");
+        </script>
+    </c:if>
 </div>
 </body>
 </html>

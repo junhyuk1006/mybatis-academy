@@ -6,7 +6,19 @@
     <insert id="insertBoard" parameterType="com.example.springpractice.dto.Board">
         insert into board(user_id,title,content) values (#{userId},#{title},#{content})
     </insert>
-    <select id="getBoardList" parameterType="com.example.springpractice.dto.Board">
+    <select id="getBoardList">
         select id,title,content,user_id as userId,create_at as time from board
     </select>
+    <select id="getMyBoardList" parameterType="int">
+        select id,title,content,user_id as userId,create_at as time from board where user_id = #{userId}
+    </select>
+    <select id="getBoard" parameterType="int">
+        select id,title,content,user_id as userId,create_at as time from board where id = #{id}
+    </select>
+    <update id="updateBoard" parameterType="com.example.springpractice.dto.Board">
+        update board set title = #{title} , content = #{content} where id = #{id}
+    </update>
+    <delete id="deleteBoard" parameterType="int">
+        delete from board where id = #{id}
+    </delete>
 </mapper>
