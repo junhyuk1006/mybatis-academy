@@ -1,6 +1,8 @@
 package com.example.springpractice.controller;
 
 import com.example.springpractice.dto.Board;
+import com.example.springpractice.dto.PageRequest;
+import com.example.springpractice.dto.PageResponse;
 import com.example.springpractice.dto.User;
 import com.example.springpractice.service.BoardService;
 import jakarta.servlet.http.HttpSession;
@@ -20,13 +22,15 @@ public class BoardController {
     BoardService service;
 
     @GetMapping("/boardList")
-    public String boardList(HttpSession session, Model model) {
+    public String boardList(PageRequest pageRequest, HttpSession session, Model model) {
         User user = (User)session.getAttribute("user");
         if(user == null){
             return "redirect:/login";
         }
-        List<Board> boardList = service.getBoardList();
-        model.addAttribute("boardList", boardList);
+        //List<Board> boardList = service.getBoardList();
+        //model.addAttribute("boardList", boardList);
+        PageResponse response = service.getBoardList(pageRequest);
+        model.addAttribute("pageResponse", response);
         return "board/boardList";
     }
 
@@ -57,11 +61,11 @@ public class BoardController {
     }
 
     @GetMapping("/myBoardList")
-    public String myBoard(HttpSession session , Model model) {
+    public String myBoard(HttpSession session , Model model, PageRequest pageRequest) {
         User user = (User)session.getAttribute("user");
         if(user == null) return "redirect:/login";
-        List<Board> myBoardList = service.getMyBoardList(user.getId());
-        model.addAttribute("boardList",myBoardList);
+        PageResponse response = service.getMyBoardList(user.getId(), pageRequest);
+        model.addAttribute("pageResponse",response);
         return "board/myBoardList";
     }
 

@@ -1,6 +1,8 @@
 package com.example.springpractice.service;
 
 import com.example.springpractice.dto.Board;
+import com.example.springpractice.dto.PageRequest;
+import com.example.springpractice.dto.PageResponse;
 import com.example.springpractice.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +19,19 @@ public class BoardService {
         return boardMapper.insertBoard(board);
     }
 
-    public List<Board> getBoardList(){
-        return boardMapper.getBoardList();
+    public PageResponse getBoardList(PageRequest request){
+        int total = boardMapper.countBoardList(); // 총 게시물 수
+        int totalPages = (int)Math.ceil((double)total / request.getSize());
+        List<Board> boardList = boardMapper.getBoardList(request.getSize(),request.getOffset());
+        return new PageResponse(boardList,totalPages, request.getPage());
     }
 
-    public List<Board> getMyBoardList(int userId){return boardMapper.getMyBoardList(userId);}
+    public PageResponse getMyBoardList(int userId,PageRequest request){
+        int total = boardMapper.myCountBoardList(userId); // 총 게시물 수
+        int totalPages = (int)Math.ceil((double)total / request.getSize());
+        List<Board> myBoardList = boardMapper.getMyBoardList(userId,request.getSize(),request.getOffset());
+        return new PageResponse(myBoardList,totalPages, request.getPage());
+    }
 
     public Board getboard(int id) {
         return boardMapper.getBoard(id);

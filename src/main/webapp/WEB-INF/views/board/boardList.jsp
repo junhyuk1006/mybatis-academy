@@ -27,6 +27,17 @@
         tr:hover {
             background-color: #f5f5f5;
         }
+        .pagination a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: black;
+        }
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
     </style>
     <script type="text/javascript">
         function showAlert(message) {
@@ -45,7 +56,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="board" items="${boardList}">
+        <c:forEach var="board" items="${pageResponse.data}">
             <tr>
                 <td><a href="${pageContext.request.contextPath}/board/${board.id}">${board.title}</a></td>
                 <td>${board.time}</td>
@@ -53,6 +64,12 @@
         </c:forEach>
         </tbody>
     </table>
+    <div class="pagination">
+        <c:forEach var="i" begin="1" end="${pageResponse.totalPages}">
+            <a href="${pageContext.request.contextPath}/boardList?page=${i}&size=10"
+               class="${i == pageResponse.currentPage ? 'active' : ''}">${i}</a>
+        </c:forEach>
+    </div>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/addBoard'">게시글 등록</button>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/myBoardList'">내 게시물</button>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/home'">홈으로</button>

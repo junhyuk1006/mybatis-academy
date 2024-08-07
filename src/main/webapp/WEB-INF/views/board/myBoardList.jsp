@@ -45,7 +45,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="board" items="${boardList}">
+        <c:forEach var="board" items="${pageResponse.data}">
             <tr>
                 <td><a href="${pageContext.request.contextPath}/board/${board.id}">${board.title}</a></td>
                 <td>${board.time}</td>
@@ -53,6 +53,12 @@
         </c:forEach>
         </tbody>
     </table>
+    <div>
+        <c:forEach var="i" begin="1" end="${pageResponse.totalPages}">
+            <a href="${pageContext.request.contextPath}/myBoardList?page=${i}&size=10"
+               class="${i == pageResponse.currentPage ? 'active' : ''}">${i}</a>
+        </c:forEach>
+    </div>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/boardList'">목록으로</button>
     <c:if test="${not empty deleteMessage}">
         <script type="text/javascript">
