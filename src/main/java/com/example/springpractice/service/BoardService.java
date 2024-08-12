@@ -23,14 +23,18 @@ public class BoardService {
         int total = boardMapper.countBoardList(); // 총 게시물 수
         int totalPages = (int)Math.ceil((double)total / request.getSize());
         List<Board> boardList = boardMapper.getBoardList(request.getSize(),request.getOffset());
-        return new PageResponse(boardList,totalPages, request.getPage());
+        int startPage = (request.getPage()-1)/5*5+1;
+        int endPage = Math.min(startPage+4,totalPages);
+        return new PageResponse(boardList,totalPages, request.getPage(),startPage,endPage);
     }
 
     public PageResponse getMyBoardList(int userId,PageRequest request){
         int total = boardMapper.myCountBoardList(userId); // 총 게시물 수
         int totalPages = (int)Math.ceil((double)total / request.getSize());
         List<Board> myBoardList = boardMapper.getMyBoardList(userId,request.getSize(),request.getOffset());
-        return new PageResponse(myBoardList,totalPages, request.getPage());
+        int startPage = (request.getPage()-1)/5*5+1;
+        int endPage = Math.min(startPage+4,totalPages);
+        return new PageResponse(myBoardList,totalPages, request.getPage(),startPage,endPage);
     }
 
     public Board getboard(int id) {

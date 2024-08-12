@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 
 @Controller
 public class BoardController {
@@ -78,7 +77,7 @@ public class BoardController {
         model.addAttribute("board",board);
         return "board/board";
     }
-
+/*
     @GetMapping("/myBoard/{id}")
     public String myBoard(@PathVariable("id") int id, HttpSession session, Model model){
         User user = (User)session.getAttribute("user");
@@ -87,7 +86,7 @@ public class BoardController {
         model.addAttribute("board",board);
         return "board/myBoard";
     }
-
+*/
     @GetMapping("/editBoard/{id}")
     public String edit(@PathVariable("id") int id,HttpSession session,Model model){
         User user = (User)session.getAttribute("user");
@@ -101,7 +100,7 @@ public class BoardController {
     public String editBoard(@PathVariable("id") int id, Board board){
         int i = service.updateBoard(board);
         if(i==1){
-            return "redirect:/myBoard/{id}";
+            return "redirect:/board/{id}";
         }
         return "redirect:/editBoard/{id}";
     }

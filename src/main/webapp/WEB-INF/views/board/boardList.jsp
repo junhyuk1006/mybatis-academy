@@ -65,10 +65,16 @@
         </tbody>
     </table>
     <div class="pagination">
-        <c:forEach var="i" begin="1" end="${pageResponse.totalPages}">
+        <c:if test="${pageResponse.startPage > 1}">
+               <a href="/boardList?page=${pageResponse.startPage-1}&size=10">이전</a>
+        </c:if>
+        <c:forEach var="i" begin="${pageResponse.startPage}" end="${pageResponse.endPage}">
             <a href="${pageContext.request.contextPath}/boardList?page=${i}&size=10"
                class="${i == pageResponse.currentPage ? 'active' : ''}">${i}</a>
         </c:forEach>
+        <c:if test="${pageResponse.endPage < pageResponse.totalPages}">
+            <a href="/boardList?page=${pageResponse.endPage+1}&size=10">다음</a>
+        </c:if>
     </div>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/addBoard'">게시글 등록</button>
     <button class="button" onclick="location.href='${pageContext.request.contextPath}/myBoardList'">내 게시물</button>
