@@ -1,10 +1,8 @@
 package com.example.springpractice.controller;
 
-import com.example.springpractice.dto.Board;
-import com.example.springpractice.dto.PageRequest;
-import com.example.springpractice.dto.PageResponse;
-import com.example.springpractice.dto.User;
+import com.example.springpractice.dto.*;
 import com.example.springpractice.service.BoardService;
+import com.example.springpractice.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 
 @Controller
 public class BoardController {
     @Autowired
     BoardService service;
+
+    @Autowired
+    CommentService commentService;
 
     @GetMapping("/boardList")
     public String boardList(PageRequest pageRequest, HttpSession session, Model model) {
@@ -75,6 +78,8 @@ public class BoardController {
         Board board = service.getboard(id);
         if(board.getUserId()== user.getId()) model.addAttribute("myBoard",board.getUserId());
         model.addAttribute("board",board);
+        List<Comment> comments = commentService.getComments(id);
+        model.addAttribute("comments", comments);
         return "board/board";
     }
 /*

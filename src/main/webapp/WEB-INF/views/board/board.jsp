@@ -26,6 +26,28 @@
         </c:if>
         <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/boardList'">목록으로</button>
     </div>
+    <div class="comment-section">
+        <h3 style="color:white">댓글</h3>
+            <c:forEach var="comment" items="${comments}">
+                <div class="comment">
+                    <p style="color: white"><strong>${comment.userId} -> </strong>${comment.content} -> ${comment.time}</p>
+                    <button type="button" class="btn">답글 달기</button>
+                </div>
+            </c:forEach>
+        <div class="reply">
+            <blockquote>
+                    <p style="color: white"><strong>사용자2</strong>: → 이건 대댓글입니다.</p>
+                    <button type="button" class="btn">답글 달기</button>
+            </blockquote>
+        </div>
+        <h4 style="color:white">댓글 작성</h4>
+        <form action="/board/${board.id}" method="post">
+            <div class="textbox">
+                <textarea name="content" placeholder="댓글을 입력하세요..." required></textarea>
+            </div>
+            <button type="submit" class="btn">댓글 작성</button>
+           </form>
+    </div>
 </div>
 </body>
 </html>
