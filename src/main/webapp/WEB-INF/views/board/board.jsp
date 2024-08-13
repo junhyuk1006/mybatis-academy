@@ -30,7 +30,17 @@
         <h3 style="color:white">댓글</h3>
             <c:forEach var="comment" items="${comments}">
                 <div class="comment">
-                    <p style="color: white"><strong>${comment.userId} -> </strong>${comment.content} -> ${comment.time}</p>
+                    <p style="color: white"><strong> ${comment.userId} -> </strong>${comment.content} -> ${comment.time} ->
+                     <form action="/like/${board.id}/${comment.id}" method="post" style="display: inline;">
+                        <button type="submit" style="background:none; border:none; color:white;">
+                            <img src="/images/like.png" alt="Like" style="width:16px; height:16px;">
+                            <span>${comment.likes}</span>
+                        </button>
+                     </form>
+                    </p>
+                    <c:if test="${user.id eq comment.userId}">
+                        <button type="button" class="btn" onclick="location.href='/deleteComment/${board.id}/${comment.id}'">삭제하기</button>
+                    </c:if>
                     <button type="button" class="btn">답글 달기</button>
                 </div>
             </c:forEach>

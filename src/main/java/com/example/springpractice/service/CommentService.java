@@ -20,4 +20,15 @@ public class CommentService {
         return mapper.getComments(boardId);
     }
 
+    public int deleteComment(int commentId){
+        return mapper.deleteComment(commentId);
+    }
+
+    public Comment getComment(int commentId){
+        return mapper.getComment(commentId);
+    }
+
+    public void incrementLikes(Comment comment){
+        mapper.incrementLikes(comment);
+    }
 }

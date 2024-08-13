@@ -19,7 +19,7 @@
         <h2 id="form-title">Login</h2>
         <form id="login-form" action="${pageContext.request.contextPath}/" method="post" style="display: block">
             <div class="textbox">
-                <input type="text" placeholder="Username" name="username" required>
+                <input type="text" placeholder="Username" name="username" autofocus="autofocus" required>
             </div>
             <div class="textbox">
                 <input type="password" placeholder="Password" name="password" required>

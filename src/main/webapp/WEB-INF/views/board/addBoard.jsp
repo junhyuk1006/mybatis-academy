@@ -15,7 +15,7 @@
         <form action="${pageContext.request.contextPath}/addBoard" method="post">
             <div class="textbox">
                 <label for="title">제목</label>
-                <input type="text" placeholder="title" name="title" required>
+                <input type="text" placeholder="title" name="title" autofocus="autofocus" required>
             </div>
             <div class="textbox">
                 <label for="content">내용</label>

@@ -79,6 +79,7 @@ public class BoardController {
         if(board.getUserId()== user.getId()) model.addAttribute("myBoard",board.getUserId());
         model.addAttribute("board",board);
         List<Comment> comments = commentService.getComments(id);
+        model.addAttribute("user",user);
         model.addAttribute("comments", comments);
         return "board/board";
     }

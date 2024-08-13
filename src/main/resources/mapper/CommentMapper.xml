@@ -7,6 +7,15 @@
         insert into comments(user_id,board_id,content) values (#{userId},#{boardId},#{content})
     </insert>
     <select id="getComments" parameterType="int">
-        select user_id userId , content , created_at time from comments where board_id = #{boardId}
+        select id, user_id userId , content , created_at time from comments where board_id = #{boardId}
     </select>
+    <delete id="deleteComment" parameterType="int">
+        delete from comments where id = #{commentId}
+    </delete>
+    <select id="getComment" parameterType="int" resultType="com.example.springpractice.dto.Comment">
+        select * from comments where id = #{commentId}
+    </select>
+    <update id="incrementLikes" parameterType="com.example.springpractice.dto.Comment">
+        update comments set likes = #{likes} where id=#{id}
+    </update>
 </mapper>

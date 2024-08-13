@@ -6,6 +6,7 @@ import com.example.springpractice.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -21,7 +22,26 @@ public class CommentController {
         comment.setBoardId(boardId);
         comment.setUserId(user.getId());
         int i = service.insertComment(comment);
-        if(i==1) return "redirect:/board/{id}";
+        if(i==1) return "redirect:/board/"+boardId;
         else return "/";
+    }
+
+    @GetMapping("/deleteComment/{boardId}/{commentId}")
+    public String deleteComment(@PathVariable("boardId") int boardId, @PathVariable("commentId") int commentId,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user == null) return "redirect:/login";
+        System.out.println(boardId);
+        System.out.println(commentId);
+        int i = service.deleteComment(commentId);
+        if (i==1) return "redirect:/board/"+boardId;
+        else return "redirect:/boardList";
+    }
+
+    @PostMapping("/like/{boardId}/{commentId}")
+    public String like(@PathVariable("commentId")int commentId,@PathVariable("boardId")int boardId){
+        Comment comment = service.getComment(commentId);
+        comment.setLikes(comment.getLikes()+1);
+        service.incrementLikes(comment);
+        return "redirect:/board/"+boardId;
     }
 }

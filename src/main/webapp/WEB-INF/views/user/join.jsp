@@ -27,7 +27,7 @@
         <h2>Join</h2>
         <form action="${pageContext.request.contextPath}/join" method="post">
             <div class="textbox">
-                <input type="text" placeholder="Username" name="username" required>
+                <input type="text" placeholder="Username" name="username" autofocus="autofocus" required>
             </div>
             <div class="textbox">
                 <input type="password" placeholder="Password" name="password" required>
