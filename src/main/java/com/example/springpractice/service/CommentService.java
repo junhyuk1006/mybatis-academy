@@ -1,6 +1,7 @@
 package com.example.springpractice.service;
 
 import com.example.springpractice.dto.Comment;
+import com.example.springpractice.dto.Like;
 import com.example.springpractice.mapper.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,8 @@ public class CommentService {
         return mapper.deleteComment(commentId);
     }
 
-    public Comment getComment(int commentId){
-        return mapper.getComment(commentId);
-    }
 
-    public void incrementLikes(Comment comment){
-        mapper.incrementLikes(comment);
+    public void incrementLikes(Like like){
+        mapper.incrementLikes(like);
     }
 }

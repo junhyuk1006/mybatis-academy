@@ -1,6 +1,7 @@
 package com.example.springpractice.mapper;
 
 import com.example.springpractice.dto.Comment;
+import com.example.springpractice.dto.Like;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,6 +11,5 @@ public interface CommentMapper {
     int insertComment(Comment comment);
     List<Comment> getComments(int boardId);
     int deleteComment(int commentId);
-    Comment getComment(int commentId);
-    void incrementLikes(Comment comment);
+    void incrementLikes(Like like);
 }
