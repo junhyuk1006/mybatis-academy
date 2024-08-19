@@ -21,10 +21,10 @@
             <div id="content" style="color: white">${board.content}</div>
         </div>
         <c:if test="${not empty myBoard}">
-            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/editBoard/${board.id}'">수정하기</button>
-            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/deleteBoard/${board.id}'">삭제하기</button>
+            <button type="button" class="btn" onclick="location.href='/editBoard/${board.id}'">수정하기</button>
+            <button type="button" class="btn" onclick="location.href='/deleteBoard/${board.id}'">삭제하기</button>
         </c:if>
-        <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/boardList'">목록으로</button>
+        <button type="button" class="btn" onclick="location.href='/boardList'">목록으로</button>
     </div>
     <div class="comment-section">
         <h3 style="color:white">댓글</h3>
@@ -34,7 +34,7 @@
                      <form action="/like/${board.id}/${comment.id}" method="post" style="display: inline;">
                         <button type="submit" style="background:none; border:none; color:white;">
                             <img src="/images/like.png" alt="Like" style="width:16px; height:16px;">
-                            <span>${comment.likes}</span>
+                            <span>${comment.likeCount}</span>
                         </button>
                      </form>
                     </p>

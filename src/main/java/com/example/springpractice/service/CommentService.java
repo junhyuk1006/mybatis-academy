@@ -1,6 +1,7 @@
 package com.example.springpractice.service;
 
 import com.example.springpractice.dto.Comment;
+import com.example.springpractice.dto.CommentLike;
 import com.example.springpractice.dto.Like;
 import com.example.springpractice.mapper.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CommentService {
         return mapper.insertComment(comment);
     }
 
-    public List<Comment> getComments(int boardId){
+    public List<CommentLike> getComments(int boardId){
         return mapper.getComments(boardId);
     }
 
@@ -26,7 +27,7 @@ public class CommentService {
     }
 
 
-    public void incrementLikes(Like like){
-        mapper.incrementLikes(like);
+    public int incrementLikes(Like like){
+        return mapper.incrementLikes(like);
     }
 }

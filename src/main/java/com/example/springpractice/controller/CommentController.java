@@ -41,7 +41,10 @@ public class CommentController {
         User user = (User)session.getAttribute("user");
         if(user==null) return "redirect:/login";
         Like like = new Like(commentId,user.getId());
-        service.incrementLikes(like);
+        int i = service.incrementLikes(like);// 한사람이 똑같은 댓글에 좋아요를 누를경우 오류가 나므로 알림창으로 해결.
+        if (i!=1) {
+            System.out.println("삽입안됌");
+        }
         return "redirect:/board/"+boardId;
     }
 }

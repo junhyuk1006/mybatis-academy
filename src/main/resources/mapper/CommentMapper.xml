@@ -7,14 +7,14 @@
         insert into comments(user_id,board_id,content) values (#{userId},#{boardId},#{content})
     </insert>
     <select id="getComments" parameterType="int" resultType="com.example.springpractice.dto.CommentLike">
-        select id, user_id userId , content , created_at time from comments where board_id = #{boardId}
-        <!--여기서 조인해서 id,userId,content,time, 좋아요 수(count(*)이용 을 CommnetLike객체에 반환해서 그냥 순환돌리면됌.
-        내가 생각해야 할거는 count(*)이걸 조인해야하는거. gpt 쓰지말고 해보자 -->
+        select id, user_id userId , content , created_at time ,(select count(*) from comment_likes where
+        comment_likes.comment_id = comments.id) likeCount from comments where board_id = #{boardId}
     </select>
     <delete id="deleteComment" parameterType="int">
         delete from comments where id = #{commentId}
     </delete>
-    <update id="incrementLikes" parameterType="com.example.springpractice.dto.Like">
+    <insert id="incrementLikes" parameterType="com.example.springpractice.dto.Like">
         insert into comment_likes(comment_id , user_id) values (#{commentId} ,#{userId})
-    </update>
+        on duplicate key update comment_id = comment_id;
+    </insert>
 </mapper>
