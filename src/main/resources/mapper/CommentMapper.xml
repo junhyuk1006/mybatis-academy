@@ -15,6 +15,8 @@
     </delete>
     <insert id="incrementLikes" parameterType="com.example.springpractice.dto.Like">
         insert into comment_likes(comment_id , user_id) values (#{commentId} ,#{userId})
-        on duplicate key update comment_id = comment_id;
     </insert>
+    <delete id="decrementLikes" parameterType="com.example.springpractice.dto.Like">
+        delete from comment_likes where comment_id = #{commentId} and user_id = #{userId}
+    </delete>
 </mapper>

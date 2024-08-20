@@ -30,4 +30,8 @@ public class CommentService {
     public int incrementLikes(Like like){
         return mapper.incrementLikes(like);
     }
+
+    public int decrementLikes(Like like){
+        return mapper.decrementLikes(like);
+    }
 }

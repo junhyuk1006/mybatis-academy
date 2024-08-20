@@ -6,6 +6,7 @@ import com.example.springpractice.dto.User;
 import com.example.springpractice.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,9 +42,12 @@ public class CommentController {
         User user = (User)session.getAttribute("user");
         if(user==null) return "redirect:/login";
         Like like = new Like(commentId,user.getId());
-        int i = service.incrementLikes(like);// 한사람이 똑같은 댓글에 좋아요를 누를경우 오류가 나므로 알림창으로 해결.
-        if (i!=1) {
-            System.out.println("삽입안됌");
+        try {
+            int i = service.incrementLikes(like);
+        }catch (DuplicateKeyException e){
+            int j = service.decrementLikes(like);
+            if(j==1) return "redirect:/board/"+boardId;
+            else return "user/home";
         }
         return "redirect:/board/"+boardId;
     }

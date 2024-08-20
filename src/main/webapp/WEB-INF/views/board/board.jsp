@@ -33,7 +33,7 @@
                     <p style="color: white"><strong> ${comment.userId} -> </strong>${comment.content} -> ${comment.time} ->
                      <form action="/like/${board.id}/${comment.id}" method="post" style="display: inline;">
                         <button type="submit" style="background:none; border:none; color:white;">
-                            <img src="/images/like.png" alt="Like" style="width:16px; height:16px;">
+                            <img src="/images/like.png" alt="Like" style="width:25px; height:25px;">
                             <span>${comment.likeCount}</span>
                         </button>
                      </form>

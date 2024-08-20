@@ -13,4 +13,5 @@ public interface CommentMapper {
     List<CommentLike> getComments(int boardId);
     int deleteComment(int commentId);
     int incrementLikes(Like like);
+    int decrementLikes(Like like);
 }
