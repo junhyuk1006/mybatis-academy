@@ -11,4 +11,5 @@ public class CommentLike {
     private String content;
     private Timestamp time;
     private int likeCount;
+    private int parentId;
 }

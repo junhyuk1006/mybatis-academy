@@ -22,8 +22,16 @@ public class CommentService {
         return mapper.getComments(boardId);
     }
 
+    public Comment getComment(int commentId){
+        return mapper.getComment(commentId);
+    }
+
     public int deleteComment(int commentId){
         return mapper.deleteComment(commentId);
+    }
+
+    public int updateComment(Comment comment){
+        return mapper.updateComment(comment);
     }
 
 

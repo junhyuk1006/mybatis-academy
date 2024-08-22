@@ -11,6 +11,8 @@ import java.util.List;
 public interface CommentMapper {
     int insertComment(Comment comment);
     List<CommentLike> getComments(int boardId);
+    Comment getComment(int commentId);
+    int updateComment(Comment comment);
     int deleteComment(int commentId);
     int incrementLikes(Like like);
     int decrementLikes(Like like);

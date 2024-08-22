@@ -39,9 +39,11 @@
                      </form>
                     </p>
                     <c:if test="${user.id eq comment.userId}">
+                        <button type="button" class="btn" onclick="location.href='/editComment/${board.id}/${comment.id}'">수정하기</button>
                         <button type="button" class="btn" onclick="location.href='/deleteComment/${board.id}/${comment.id}'">삭제하기</button>
                     </c:if>
-                    <button type="button" class="btn">답글 달기</button>
+                    <div>${comment.parentId}</div>
+                    <button type="button" class="btn" onclick="location.href='/commentComment/${board.id}/${comment.id}'">답글 달기</button>
                 </div>
             </c:forEach>
         <div class="reply">
@@ -56,7 +58,7 @@
                 <textarea name="content" placeholder="댓글을 입력하세요..." required></textarea>
             </div>
             <button type="submit" class="btn">댓글 작성</button>
-           </form>
+        </form>
     </div>
 </div>
 </body>

@@ -3,11 +3,13 @@ package com.example.springpractice.controller;
 import com.example.springpractice.dto.Comment;
 import com.example.springpractice.dto.Like;
 import com.example.springpractice.dto.User;
+import com.example.springpractice.mapper.CommentMapper;
 import com.example.springpractice.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +30,26 @@ public class CommentController {
         else return "/";
     }
 
+    @GetMapping("/editComment/{boardId}/{commentId}")
+    public String editComment(@PathVariable("commentId") int commentId, @PathVariable("boardId") int boardId ,Model model,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user == null) return "redirect:/login";
+        Comment comment = service.getComment(commentId);
+        model.addAttribute("comment",comment);
+        model.addAttribute("boardId",boardId);
+        return "/board/commentEdit";
+    }
+
+    @PostMapping("/editComment/{boardId}/{commentId}")
+    public String editComment(@PathVariable("boardId")int boardId,@PathVariable("commentId") int commentId, Comment comment){
+        comment.setId(commentId);
+        int i = service.updateComment(comment);
+        if(i==1){
+            return "redirect:/board/{boardId}";
+        }
+        else return "redirect:/editComment/{boardId}/{commentId}";
+    }
+
     @GetMapping("/deleteComment/{boardId}/{commentId}")
     public String deleteComment(@PathVariable("boardId") int boardId, @PathVariable("commentId") int commentId,HttpSession session){
         User user = (User) session.getAttribute("user");
@@ -35,6 +57,28 @@ public class CommentController {
         int i = service.deleteComment(commentId);
         if (i==1) return "redirect:/board/"+boardId;
         else return "redirect:/boardList";
+    }
+
+    @GetMapping("/commentComment/{boardId}/{commentId}")
+    public String commentComment(@PathVariable("boardId")int boardId,@PathVariable("commentId")int commentId, HttpSession session,Model model){
+        User user = (User)session.getAttribute("user");
+        if(user == null) return "redirect:/login";
+        model.addAttribute("boarId",boardId);
+        model.addAttribute("commentId",commentId);
+        return "/board/commentComment";
+    }
+
+    @PostMapping("/commentComment/{boardId}/{commentId}")
+    public String commentComment(@PathVariable("boardId")int boardId,@PathVariable("commentId")int commentId,HttpSession session,Comment comment){
+        User user = (User)session.getAttribute("user");
+        if(user == null) return "redirect:/login";
+        comment.setUserId(user.getId());
+        comment.setBoardId(boardId);
+        comment.setParentId(commentId);
+        System.out.println(comment);
+        int i = service.insertComment(comment);
+        if(i!=1) return "redirect:/commentComment/{boardId}/{commentId}";
+        return "redirect:/board/{boardId}";
     }
 
     @PostMapping("/like/{boardId}/{commentId}")
