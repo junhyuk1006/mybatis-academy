@@ -27,7 +27,7 @@ public class BoardController {
     public String boardList(PageRequest pageRequest, HttpSession session, Model model) {
         User user = (User)session.getAttribute("user");
         if(user == null){
-            return "redirect:/login";
+            return "redirect:/";
         }
         //List<Board> boardList = service.getBoardList();
         //model.addAttribute("boardList", boardList);
@@ -40,7 +40,7 @@ public class BoardController {
     public String addBoard(HttpSession session) {
         User user = (User)session.getAttribute("user");
         if(user == null){
-            return "redirect:/login";
+            return "redirect:/";
         }
         return "board/addBoard";
     }
@@ -58,14 +58,14 @@ public class BoardController {
             return "redirect:/addBoard";
         }
         else{
-            return "redirect:/login";
+            return "redirect:/";
         }
     }
 
     @GetMapping("/myBoardList")
     public String myBoard(HttpSession session , Model model, PageRequest pageRequest) {
         User user = (User)session.getAttribute("user");
-        if(user == null) return "redirect:/login";
+        if(user == null) return "redirect:/";
         PageResponse response = service.getMyBoardList(user.getId(), pageRequest);
         model.addAttribute("pageResponse",response);
         return "board/myBoardList";
@@ -74,7 +74,7 @@ public class BoardController {
     @GetMapping("/board/{id}")
     public String board(@PathVariable("id") int id , HttpSession session,Model model){
         User user = (User)session.getAttribute("user");
-        if(user == null) return "redirect:/login";  // 세션 확인
+        if(user == null) return "redirect:/";  // 세션 확인
 
         Board board = service.getboard(id); // board의 id 값 주고 board 하나 가져오기
 
@@ -105,7 +105,7 @@ public class BoardController {
     @GetMapping("/editBoard/{id}")
     public String edit(@PathVariable("id") int id,HttpSession session,Model model){
         User user = (User)session.getAttribute("user");
-        if(user == null) return "redirect:/login";
+        if(user == null) return "redirect:/";
         Board board = service.getboard(id);
         model.addAttribute("board",board);
         return "board/edit";
@@ -123,7 +123,7 @@ public class BoardController {
     @GetMapping("/deleteBoard/{id}")
     public String deleteBoard(@PathVariable("id") int id, HttpSession session, RedirectAttributes redirectAttributes){
         User user = (User)session.getAttribute("user");
-        if(user == null) return "redirect:/login";
+        if(user == null) return "redirect:/";
         int i = service.deleteBoard(id);
         if(i==1){
             redirectAttributes.addFlashAttribute("deleteMessage","삭제에 성공하였습니다!");

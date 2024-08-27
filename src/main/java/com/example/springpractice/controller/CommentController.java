@@ -3,7 +3,6 @@ package com.example.springpractice.controller;
 import com.example.springpractice.dto.Comment;
 import com.example.springpractice.dto.Like;
 import com.example.springpractice.dto.User;
-import com.example.springpractice.mapper.CommentMapper;
 import com.example.springpractice.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class CommentController {
     @PostMapping("/board/{id}")
     public String addComment(@PathVariable("id") int boardId, HttpSession session, Comment comment){
         User user = (User) session.getAttribute("user");
-        if(user == null) return "redirect:/login";
+        if(user == null) return "redirect:/";
         comment.setBoardId(boardId);
         comment.setUserId(user.getId());
         int i = service.insertComment(comment);
@@ -33,7 +32,7 @@ public class CommentController {
     @GetMapping("/editComment/{boardId}/{commentId}")
     public String editComment(@PathVariable("commentId") int commentId, @PathVariable("boardId") int boardId ,Model model,HttpSession session){
         User user = (User) session.getAttribute("user");
-        if(user == null) return "redirect:/login";
+        if(user == null) return "redirect:/";
         Comment comment = service.getComment(commentId);
         model.addAttribute("comment",comment);
         model.addAttribute("boardId",boardId);
@@ -53,7 +52,7 @@ public class CommentController {
     @GetMapping("/deleteComment/{boardId}/{commentId}")
     public String deleteComment(@PathVariable("boardId") int boardId, @PathVariable("commentId") int commentId,HttpSession session){
         User user = (User) session.getAttribute("user");
-        if(user == null) return "redirect:/login";
+        if(user == null) return "redirect:/";
         int i = service.deleteComment(commentId);
         if (i==1) return "redirect:/board/"+boardId;
         else return "redirect:/boardList";
@@ -62,7 +61,7 @@ public class CommentController {
     @GetMapping("/commentComment/{boardId}/{commentId}")
     public String commentComment(@PathVariable("boardId")int boardId,@PathVariable("commentId")int commentId, HttpSession session,Model model){
         User user = (User)session.getAttribute("user");
-        if(user == null) return "redirect:/login";
+        if(user == null) return "redirect:/";
         model.addAttribute("boarId",boardId);
         model.addAttribute("commentId",commentId);
         return "/board/commentComment";
@@ -71,7 +70,7 @@ public class CommentController {
     @PostMapping("/commentComment/{boardId}/{commentId}")
     public String commentComment(@PathVariable("boardId")int boardId,@PathVariable("commentId")int commentId,HttpSession session,Comment comment){
         User user = (User)session.getAttribute("user");
-        if(user == null) return "redirect:/login";
+        if(user == null) return "redirect:/";
         comment.setUserId(user.getId());
         comment.setBoardId(boardId);
         comment.setParentId(commentId);
@@ -84,7 +83,7 @@ public class CommentController {
     @PostMapping("/like/{boardId}/{commentId}")
     public String like(@PathVariable("commentId")int commentId,@PathVariable("boardId")int boardId,HttpSession session){
         User user = (User)session.getAttribute("user");
-        if(user==null) return "redirect:/login";
+        if(user==null) return "redirect:/";
         Like like = new Like(commentId,user.getId());
         try {
             int i = service.incrementLikes(like);
