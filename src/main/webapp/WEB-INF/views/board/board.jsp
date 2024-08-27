@@ -39,7 +39,7 @@
     <div class="comment-section">
         <h3 style="color:white">댓글</h3>
             <c:forEach var="comment" items="${comments}">
-                <c:if test = "${comment.parentId == 0}">
+                <c:if test = "${comment.parentId == null}">
                     <div class="comment">
                         <p style="color: white"><strong> ${comment.userId} -> </strong>${comment.content} -> ${comment.time} ->
                          <form action="/like/${board.id}/${comment.id}" method="post" style="display: inline;">

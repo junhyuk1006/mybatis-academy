@@ -11,5 +11,5 @@ public class Comment {
     private int boardId;
     private String content;
     private Timestamp time;
-    private int parentId;
+    private Integer parentId;
 }
