@@ -41,7 +41,7 @@ public class UserController {
             return "redirect:/";
         }
         else {
-            model.addAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
+            model.addAttribute("message", "이메일 또는 비밀번호가 일치하지 않습니다.");
             return "user/login";
         }
     }
@@ -119,7 +119,7 @@ public class UserController {
         if(i == 1){
             session.invalidate();
             model.addAttribute("message","회원삭제에 성공하였습니다.");
-            return "user/delete";
+            return "redirect:/";
         }
         return "redirect:/mypage";
     }

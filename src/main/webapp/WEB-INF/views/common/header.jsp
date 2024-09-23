@@ -17,8 +17,8 @@
         <div>
             <img src="https://via.placeholder.com/50" alt="User Avatar">
             <div class="user-details">
-                <p class="user-name">최준혁님</p>
-                <p class="user-email">gur1999@naver.com</p>
+                <p class="user-name">${sessionScope.user.username}님</p>
+                <p class="user-email">${sessionScope.user.email}</p>
             </div>
         </div>
         <button class="logout-btn" onclick="location.href='/logout'">로그아웃</button>

@@ -59,14 +59,14 @@ public class CommentController {
         else return "redirect:/boardList";
     }
 
-    @GetMapping("/commentComment/{boardId}/{commentId}")
+    /*@GetMapping("/commentComment/{boardId}/{commentId}")
     public String commentComment(@PathVariable("boardId")int boardId,@PathVariable("commentId")int commentId, HttpSession session,Model model){
         User user = SessionUtils.getSessionUser(session);
         if(user == null) return "redirect:/";
         model.addAttribute("boarId",boardId);
         model.addAttribute("commentId",commentId);
         return "/board/commentComment";
-    }
+    }*/
 
     @PostMapping("/commentComment/{boardId}/{commentId}")
     public String commentComment(@PathVariable("boardId")int boardId,@PathVariable("commentId")int commentId,HttpSession session,Comment comment){

@@ -3,6 +3,7 @@ package com.example.springpractice.controller;
 import com.example.springpractice.dto.*;
 import com.example.springpractice.service.BoardService;
 import com.example.springpractice.service.CommentService;
+import com.example.springpractice.service.UserService;
 import com.example.springpractice.util.SessionUtils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Controller
 public class BoardController {
+
     @Autowired
     BoardService service;
 
@@ -73,7 +75,6 @@ public class BoardController {
         if(user == null) return "redirect:/";  // 세션 확인
 
         Board board = service.getboard(id); // board의 id 값 주고 board 하나 가져오기
-
         // 자신이 작성한 board일때, 수정버튼과 삭제버튼을 화면에 나타내주기 위함.
         if(board.getUserId()== user.getId()) model.addAttribute("myBoard",board.getUserId());
 

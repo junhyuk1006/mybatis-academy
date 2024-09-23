@@ -19,7 +19,7 @@
         <h2 id="form-title">Login</h2>
         <form id="login-form" action="/login" method="post" style="display: block">
             <div class="textbox">
-                <input type="text" placeholder="Username" name="username" autofocus="autofocus" required>
+                <input type="text" placeholder="Email" name="email" autofocus="autofocus" required>
             </div>
             <div class="textbox">
                 <input type="password" placeholder="Password" name="password" required>

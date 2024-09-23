@@ -23,7 +23,14 @@
         limit #{size} offset #{offset}
     </select>
     <select id="getBoard" parameterType="int">
-        select id,title,content,user_id as userId,create_at as time from board where id = #{id}
+        SELECT b.id AS id,
+        b.content AS content,
+        b.title AS title,
+        b.user_id AS userId,
+        u.username AS author
+        from board b join user u
+        on b.user_id = u.id
+        where b.id = #{id}
     </select>
     <update id="updateBoard" parameterType="com.example.springpractice.dto.Board">
         update board set title = #{title} , content = #{content} where id = #{id}

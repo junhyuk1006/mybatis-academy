@@ -27,13 +27,13 @@
         <h2>Join</h2>
         <form action="${pageContext.request.contextPath}/join" method="post">
             <div class="textbox">
+                <input type="email" placeholder="Email" name="email" required>
+            </div>
+            <div class="textbox">
                 <input type="text" placeholder="Username" name="username" autofocus="autofocus" required>
             </div>
             <div class="textbox">
                 <input type="password" placeholder="Password" name="password" required>
-            </div>
-            <div class="textbox">
-                <input type="email" placeholder="Email" name="email" required>
             </div>
             <button type="submit" class="btn">회원가입</button>
             <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/'">로그인 화면으로</button>

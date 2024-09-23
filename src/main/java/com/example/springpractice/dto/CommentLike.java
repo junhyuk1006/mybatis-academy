@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 public class CommentLike {
     private int id;
     private int userId;
+    private String username;
     private String content;
     private Timestamp time;
     private int likeCount;

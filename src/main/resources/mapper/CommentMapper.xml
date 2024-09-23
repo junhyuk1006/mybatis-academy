@@ -7,8 +7,18 @@
         insert into comments(user_id,board_id,content,parent_comment_id) values (#{userId},#{boardId},#{content},#{parentId})
     </insert>
     <select id="getComments" parameterType="int" resultType="com.example.springpractice.dto.CommentLike">
-        select id, user_id userId , content , created_at time ,parent_comment_id parentId,(select count(*) from comment_likes where
-        comment_likes.comment_id = comments.id) likeCount from comments where board_id = #{boardId}
+        select
+        c.id as id,
+        c.user_id as userId,
+        u.username as username,
+        c.content as content,
+        c.created_at as time,
+        c.parent_comment_id as parentId,
+        (select count(*) from comment_likes where
+        comment_likes.comment_id = c.id) as likeCount
+        from comments c join user u
+        on c.user_id = u.id
+        where c.board_id = #{boardId}
     </select>
     <select id="getComment" parameterType="int" resultType="com.example.springpractice.dto.Comment">
         select id,user_id userId, content,created_at time from comments where id = #{commentId}
