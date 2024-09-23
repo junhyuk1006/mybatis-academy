@@ -2,6 +2,7 @@ package com.example.springpractice.controller;
 
 import com.example.springpractice.dto.User;
 import com.example.springpractice.service.UserService;
+import com.example.springpractice.util.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,30 @@ public class UserController {
     private UserService service;
 
     @GetMapping("/")
-    public String loginPage(){
+    public String home(HttpSession session,Model model){
+        User user = SessionUtils.getSessionUser(session);
+        if(user != null){
+            model.addAttribute("user",user);
+        }
         return "user/index";
     }
 
-    @PostMapping("/")
+    @GetMapping("/login")
+    public String loginPage(){
+        return "user/login";
+    }
+
+    @PostMapping("/login")
     public String login(User user, HttpServletRequest request, Model model){
         User loginUser = service.select(user);
         if(loginUser != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", loginUser);
-            return "redirect:/home";
+            return "redirect:/";
         }
         else {
             model.addAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
-            return "user/index";
+            return "user/login";
         }
     }
 
@@ -62,18 +72,9 @@ public class UserController {
         }
     }
 
-    @GetMapping("/home")
-    public String home(HttpSession session){
-        User user = (User)session.getAttribute("user");
-        if(user == null){
-            return "redirect:/";
-        }
-        return "user/home";
-    }
-
     @GetMapping("/mypage")
     public String mypage(HttpSession session , Model model){
-        User user = (User)session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         model.addAttribute("user", user);
         if(user == null){
             return "redirect:/";
@@ -83,7 +84,7 @@ public class UserController {
 
     @GetMapping("/edit")
     public String editPage(HttpSession session, Model model){
-        User user = (User)session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         model.addAttribute("user", user);
         if(user == null){
             return "redirect:/";
@@ -93,7 +94,7 @@ public class UserController {
 
     @PostMapping("/edit")
     public String edit(User user,HttpSession session,RedirectAttributes redirectAttributes){
-        User idUser = (User) session.getAttribute("user");
+        User idUser = SessionUtils.getSessionUser(session);
         user.setId(idUser.getId());
         int i = service.update(user);
         if(i == 1){
@@ -113,7 +114,7 @@ public class UserController {
 
     @GetMapping("/delete")
     public String delete(HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         int i = service.delete(user);
         if(i == 1){
             session.invalidate();

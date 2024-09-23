@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,7 @@
 <div class="container">
     <div class="login-box">
         <h2>회원정보 수정</h2>
-        <form action="${pageContext.request.contextPath}/edit" method="post">
+        <form action="/edit" method="post">
             <div class="textbox">
                 <input type="text" placeholder="Username" name="username" value="${user.username}" required>
             </div>
@@ -23,7 +23,7 @@
                 <input type="email" placeholder="Email" name="email" value="${user.email}" required>
             </div>
             <button type="submit" class="btn">수정완료</button>
-            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/mypage'">이전으로</button>
+            <button type="button" class="btn" onclick="location.href='/mypage'">이전으로</button>
         </form>
     </div>
 </div>

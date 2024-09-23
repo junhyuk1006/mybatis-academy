@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@
             flex-direction: column;
             align-items: center;
             margin-top: 50px;
+            margin-left: 300px;
         }
         table {
             width: 80%;
@@ -58,7 +60,7 @@
         <tbody>
         <c:forEach var="board" items="${pageResponse.data}">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/board/${board.id}">${board.title}</a></td>
+                <td><a href="/board/${board.id}">${board.title}</a></td>
                 <td>${board.time}</td>
             </tr>
         </c:forEach>
@@ -69,16 +71,15 @@
                <a href="/boardList?page=${pageResponse.startPage-1}&size=10">이전</a>
         </c:if>
         <c:forEach var="i" begin="${pageResponse.startPage}" end="${pageResponse.endPage}">
-            <a href="${pageContext.request.contextPath}/boardList?page=${i}&size=10"
+            <a href="/boardList?page=${i}&size=10"
                class="${i == pageResponse.currentPage ? 'active' : ''}">${i}</a>
         </c:forEach>
         <c:if test="${pageResponse.endPage < pageResponse.totalPages}">
             <a href="/boardList?page=${pageResponse.endPage+1}&size=10">다음</a>
         </c:if>
     </div>
-    <button class="button" onclick="location.href='${pageContext.request.contextPath}/addBoard'">게시글 등록</button>
-    <button class="button" onclick="location.href='${pageContext.request.contextPath}/myBoardList'">내 게시물</button>
-    <button class="button" onclick="location.href='${pageContext.request.contextPath}/home'">홈으로</button>
+    <button class="button" onclick="location.href='/addBoard'">게시글 등록</button>
+    <button class="button" onclick="location.href='/'">홈으로</button>
     <c:if test="${not empty successMessage}">
         <script type="text/javascript">
             showAlert("${successMessage}");

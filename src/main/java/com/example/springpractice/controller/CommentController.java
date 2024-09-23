@@ -4,6 +4,7 @@ import com.example.springpractice.dto.Comment;
 import com.example.springpractice.dto.Like;
 import com.example.springpractice.dto.User;
 import com.example.springpractice.service.CommentService;
+import com.example.springpractice.util.SessionUtils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -20,7 +21,7 @@ public class CommentController {
 
     @PostMapping("/board/{id}")
     public String addComment(@PathVariable("id") int boardId, HttpSession session, Comment comment){
-        User user = (User) session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         if(user == null) return "redirect:/";
         comment.setBoardId(boardId);
         comment.setUserId(user.getId());
@@ -31,7 +32,7 @@ public class CommentController {
 
     @GetMapping("/editComment/{boardId}/{commentId}")
     public String editComment(@PathVariable("commentId") int commentId, @PathVariable("boardId") int boardId ,Model model,HttpSession session){
-        User user = (User) session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         if(user == null) return "redirect:/";
         Comment comment = service.getComment(commentId);
         model.addAttribute("comment",comment);
@@ -51,7 +52,7 @@ public class CommentController {
 
     @GetMapping("/deleteComment/{boardId}/{commentId}")
     public String deleteComment(@PathVariable("boardId") int boardId, @PathVariable("commentId") int commentId,HttpSession session){
-        User user = (User) session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         if(user == null) return "redirect:/";
         int i = service.deleteComment(commentId);
         if (i==1) return "redirect:/board/"+boardId;
@@ -60,7 +61,7 @@ public class CommentController {
 
     @GetMapping("/commentComment/{boardId}/{commentId}")
     public String commentComment(@PathVariable("boardId")int boardId,@PathVariable("commentId")int commentId, HttpSession session,Model model){
-        User user = (User)session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         if(user == null) return "redirect:/";
         model.addAttribute("boarId",boardId);
         model.addAttribute("commentId",commentId);
@@ -69,7 +70,7 @@ public class CommentController {
 
     @PostMapping("/commentComment/{boardId}/{commentId}")
     public String commentComment(@PathVariable("boardId")int boardId,@PathVariable("commentId")int commentId,HttpSession session,Comment comment){
-        User user = (User)session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         if(user == null) return "redirect:/";
         comment.setUserId(user.getId());
         comment.setBoardId(boardId);
@@ -82,7 +83,7 @@ public class CommentController {
 
     @PostMapping("/like/{boardId}/{commentId}")
     public String like(@PathVariable("commentId")int commentId,@PathVariable("boardId")int boardId,HttpSession session){
-        User user = (User)session.getAttribute("user");
+        User user = SessionUtils.getSessionUser(session);
         if(user==null) return "redirect:/";
         Like like = new Like(commentId,user.getId());
         try {
