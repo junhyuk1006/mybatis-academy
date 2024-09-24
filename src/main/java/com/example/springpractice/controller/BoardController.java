@@ -6,10 +6,13 @@ import com.example.springpractice.service.CommentService;
 import com.example.springpractice.service.UserService;
 import com.example.springpractice.util.SessionUtils;
 import jakarta.servlet.http.HttpSession;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,6 +33,7 @@ public class BoardController {
     public String boardList(PageRequest pageRequest, Model model) {
         PageResponse response = service.getBoardList(pageRequest);
         model.addAttribute("pageResponse", response);
+        model.addAttribute("pageRequest", pageRequest);
         return "board/boardList";
     }
 
@@ -72,15 +76,19 @@ public class BoardController {
     @GetMapping("/board/{id}")
     public String board(@PathVariable("id") int id , HttpSession session,Model model){
         User user = SessionUtils.getSessionUser(session);
-        if(user == null) return "redirect:/";  // 세션 확인
 
         Board board = service.getboard(id); // board의 id 값 주고 board 하나 가져오기
-        // 자신이 작성한 board일때, 수정버튼과 삭제버튼을 화면에 나타내주기 위함.
-        if(board.getUserId()== user.getId()) model.addAttribute("myBoard",board.getUserId());
+        board.setReadCount(board.getReadCount()+1);
+        int i = service.updateRead(board);
 
+        // 자신이 작성한 board일때, 수정버튼과 삭제버튼을 화면에 나타내주기 위함.
+        if(user != null){
+            if(board.getUserId()== user.getId()) model.addAttribute("myBoard",board.getUserId());
+        }
         // 모델에 board 넣기
         model.addAttribute("board",board);
-
+        // 좋아요 수
+        model.addAttribute("like",service.getCountLike(id));
         // board 에 달린 댓글 가져오기
         List<CommentLike> comments = commentService.getComments(id);
         // 댓글 수정 삭제를 위한 모델에 user 넣기
@@ -88,6 +96,23 @@ public class BoardController {
         // 모델에 댓글 넣기
         model.addAttribute("comments", comments);
         return "board/board";
+    }
+
+    @PostMapping("/boardLike/{id}")
+    public String boardLike(@PathVariable("id") int id, HttpSession session, Model model){
+        User user = (User)session.getAttribute("user");
+        if(user==null){
+            return "redirect:/login";
+        }
+        BoardLike boardLike = new BoardLike(user.getId(),id);
+        try{
+            int i = service.incrementLike(boardLike);
+        }catch (DuplicateKeyException e){
+            int j  = service.decrementLike(boardLike);
+            if(j==1) return "redirect:/board/"+id;
+            else return "user/index";
+        }
+        return "redirect:/board/"+id;
     }
 
     @GetMapping("/editBoard/{id}")

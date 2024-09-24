@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Your Website</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sidebarStyles.css">
+    <style>
+        .sidebar {
+            width: 250px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <div class="sidebar">
     <h2>내 계정</h2>

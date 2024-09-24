@@ -58,18 +58,18 @@ public class UserController {
         if(existUser == null){
              result = service.insert(user);
             if(result == 1){
-                redirectAttributes.addFlashAttribute("successMessage","회원가입 완료되었습니다!");
-                return "redirect:/";
+                redirectAttributes.addFlashAttribute("message","회원가입 완료되었습니다!");
+                return "redirect:/login";
             }
             else {
                 model.addAttribute("message","회원가입에 실패하였습니다");
                 return "user/join";
             }
         }
-        else{
-            model.addAttribute("message","username이 중복되었습니다");
+        else if(existUser.getEmail().equals(user.getEmail())){
+            model.addAttribute("message","email이 중복되었습니다");
             return "user/join";
-        }
+        }else return "redirect:/";
     }
 
     @GetMapping("/mypage")

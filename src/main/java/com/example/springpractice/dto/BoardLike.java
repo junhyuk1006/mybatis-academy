@@ -5,13 +5,15 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 @Data
-public class Board {
+public class BoardLike {
     private int id;
     private int userId;
-    private int readCount;
-    private String title;
-    private String content;
-    private String author;
+    private int boardId;
     private Timestamp time;
+
+    public BoardLike(int userId, int boardId) {
+        this.userId = userId;
+        this.boardId = boardId;
+    }
 }
 

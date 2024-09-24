@@ -12,12 +12,37 @@
     <select id="myCountBoardList" resultType="int" parameterType="int">
         select count(*) from board where user_id = ${userId}
     </select>
-    <select id="getBoardList" resultType="com.example.springpractice.dto.Board" parameterType="com.example.springpractice.dto.PageRequest">
-        select id,title,content,user_id as userId, create_at as time from board
-        order by id desc limit #{size} offset #{offset}
+    <select id="getBoardList" resultType="com.example.springpractice.dto.BoardList" parameterType="com.example.springpractice.dto.PageRequest">
+        select b.id,
+        b.title,
+        b.user_id as userId,
+        b.create_at as time,
+        b.read_count as readCount,
+        u.username as author,
+        (select count(*) from board_likes bl where bl.board_id = b.id) as likeCount
+        from board b join user u
+        on b.user_id = u.id
+        <where>
+            <if test="searchKeyword != null and searchKeyword !=''">
+                b.title like concat('%',#{searchKeyword},'%')
+            </if>
+        </where>
+        order by
+            <choose>
+                <when test="sort=='like'">
+                    likeCount DESC
+                </when>
+                <when test="sort=='read'">
+                    read_count DESC
+                </when>
+                <otherwise>
+                    b.create_at DESC
+                </otherwise>
+            </choose>
+        limit #{size} offset #{offset}
     </select>
-    <select id="getMyBoardList" resultType="com.example.springpractice.dto.Board" parameterType="map">
-        select id,title,content,user_id as userId,create_at as time from board
+    <select id="getMyBoardList" resultType="com.example.springpractice.dto.BoardList" parameterType="map">
+        select id,title,user_id as userId,create_at as time from board
         where user_id = #{userId}
         order by id desc
         limit #{size} offset #{offset}
@@ -27,6 +52,7 @@
         b.content AS content,
         b.title AS title,
         b.user_id AS userId,
+        b.read_count AS readCount,
         u.username AS author
         from board b join user u
         on b.user_id = u.id
@@ -35,7 +61,19 @@
     <update id="updateBoard" parameterType="com.example.springpractice.dto.Board">
         update board set title = #{title} , content = #{content} where id = #{id}
     </update>
+    <update id="updateRead" parameterType="com.example.springpractice.dto.Board">
+        update board set read_count = #{readCount} where id = #{id}
+    </update>
     <delete id="deleteBoard" parameterType="int">
         delete from board where id = #{id}
     </delete>
+    <insert id="incrementLike" parameterType="com.example.springpractice.dto.BoardLike">
+        insert into board_likes (user_id,board_id) values (#{userId},#{boardId})
+    </insert>
+    <delete id="decrementLike" parameterType="com.example.springpractice.dto.BoardLike">
+        delete from board_likes where user_id = #{userId} and board_id = #{boardId}
+    </delete>
+    <select id="getCountLike" parameterType="int" resultType="int">
+        select count(*) from board_likes where board_id = #{boardId}
+    </select>
 </mapper>

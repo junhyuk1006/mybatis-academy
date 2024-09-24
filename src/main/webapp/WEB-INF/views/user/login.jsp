@@ -19,7 +19,7 @@
         <h2 id="form-title">Login</h2>
         <form id="login-form" action="/login" method="post" style="display: block">
             <div class="textbox">
-                <input type="text" placeholder="Email" name="email" autofocus="autofocus" required>
+                <input type="email" placeholder="Email" name="email" autofocus="autofocus" required>
             </div>
             <div class="textbox">
                 <input type="password" placeholder="Password" name="password" required>
@@ -31,11 +31,6 @@
         <c:if test="${not empty message}">
             <script type="text/javascript">
                 showAlert("${message}");
-            </script>
-        </c:if>
-        <c:if test="${not empty successMessage}">
-            <script type="text/javascript">
-                showAlert("${successMessage}");
             </script>
         </c:if>
     </div>

@@ -15,7 +15,7 @@
 <c:if test = "${user != null}">
     <div class="user-info-box">
         <div>
-            <img src="https://via.placeholder.com/50" alt="User Avatar">
+            <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA4MzBfMTky%2FMDAxNzI0OTgzNjcwODEz.08SVabCkPDTtQftmoRmslp1GeEWGJkV5FN5niwT3940g.DCIok9hHDJOPO7oGmvK6FU6ERXz3n9Bcmkf9lrJt76gg.JPEG%2Fgenerated_%252838%2529.jpg&type=sc960_832" alt="User Avatar">
             <div class="user-details">
                 <p class="user-name">${sessionScope.user.username}님</p>
                 <p class="user-email">${sessionScope.user.email}</p>

@@ -66,7 +66,7 @@
 </head>
 <body>
 <div class="container">
-    <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
+    <%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
     <div class="main-content">
         <h2>My page</h2>
         <form action="/edit" method="post">

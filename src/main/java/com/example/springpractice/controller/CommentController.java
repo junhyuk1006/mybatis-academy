@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CommentController {
@@ -20,14 +21,17 @@ public class CommentController {
     CommentService service;
 
     @PostMapping("/board/{id}")
-    public String addComment(@PathVariable("id") int boardId, HttpSession session, Comment comment){
+    public String addComment(@PathVariable("id") int boardId, HttpSession session, Comment comment , RedirectAttributes redirectAttributes){
         User user = SessionUtils.getSessionUser(session);
-        if(user == null) return "redirect:/";
+        if(user == null){
+            redirectAttributes.addFlashAttribute("message","로그인이 필요합니다!");
+            return "redirect:/login";
+        }
         comment.setBoardId(boardId);
         comment.setUserId(user.getId());
         int i = service.insertComment(comment);
         if(i==1) return "redirect:/board/"+boardId;
-        else return "/";
+        else return "user/index";
     }
 
     @GetMapping("/editComment/{boardId}/{commentId}")
@@ -91,7 +95,7 @@ public class CommentController {
         }catch (DuplicateKeyException e){
             int j = service.decrementLikes(like);
             if(j==1) return "redirect:/board/"+boardId;
-            else return "user/home";
+            else return "user/index";
         }
         return "redirect:/board/"+boardId;
     }

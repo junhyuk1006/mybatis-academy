@@ -22,13 +22,17 @@
 <div class="container">
     <div class="content-box">
             <div class="post-header">
-                <img src="" alt="작성자 프로필 사진" class="profile-img">
+                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA4MzBfMTky%2FMDAxNzI0OTgzNjcwODEz.08SVabCkPDTtQftmoRmslp1GeEWGJkV5FN5niwT3940g.DCIok9hHDJOPO7oGmvK6FU6ERXz3n9Bcmkf9lrJt76gg.JPEG%2Fgenerated_%252838%2529.jpg&type=sc960_832" alt="작성자 프로필 사진" class="profile-img">
                 <p class="author-name">${board.author}</p>
             </div>
-            <h2>${board.title}</h2>
+            <h2>제목 ${board.title}</h2>
+            <h2>조회수 ${board.readCount}</h2>
             <div class="post-content">
                 <p>${board.content}</p>
             </div>
+            <form action="/boardLike/${board.id}" method="post">
+                <button type="submit" class="like-button">좋아요(${like})</button>
+            </form>
 
             <c:if test="${not empty myBoard}">
                 <button class="btn" onclick="location.href='/editBoard/${board.id}'">수정하기</button>
@@ -46,19 +50,21 @@
             <button type="submit" class="btn">댓글 작성</button>
         </form>
         <c:forEach var="comment" items="${comments}">
-            <div class="comment-box">
-                <p><strong>${comment.username}</strong>: ${comment.content} <span>${comment.time}</span></p>
-                <form action="/like/${board.id}/${comment.id}" method="post" style="display: inline;">
-                    <button type="submit" class="like-button">좋아요 (${comment.likeCount})</button>
-                </form>
-                <div class="comment-buttons">
-                    <c:if test="${user.id eq comment.userId}">
-                        <button class="btn" onclick="location.href='/editComment/${board.id}/${comment.id}'">수정하기</button>
-                        <button class="btn" onclick="location.href='/deleteComment/${board.id}/${comment.id}'">삭제하기</button>
-                    </c:if>
-                    <button class="btn" onclick="toggleReplies(${comment.id})">대댓글</button>
+            <c:if test="${comment.parentId == null}">
+                <div class="comment-box">
+                    <p><strong>${comment.username}</strong>: ${comment.content} <span>${comment.time}</span></p>
+                    <form action="/like/${board.id}/${comment.id}" method="post" style="display: inline;">
+                        <button type="submit" class="like-button">좋아요 (${comment.likeCount})</button>
+                    </form>
+                    <div class="comment-buttons">
+                        <c:if test="${user.id eq comment.userId}">
+                            <button class="btn" onclick="location.href='/editComment/${board.id}/${comment.id}'">수정하기</button>
+                            <button class="btn" onclick="location.href='/deleteComment/${board.id}/${comment.id}'">삭제하기</button>
+                        </c:if>
+                        <button class="btn" onclick="toggleReplies(${comment.id})">대댓글</button>
+                    </div>
                 </div>
-            </div>
+            </c:if>
 
             <!-- 답글 섹션 -->
             <div id="replies-${comment.id}" class="reply-comment" style="display:none;">

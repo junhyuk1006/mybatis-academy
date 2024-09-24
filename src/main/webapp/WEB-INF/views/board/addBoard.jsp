@@ -12,7 +12,7 @@
 <div class="container">
     <div class="login-box">
         <h2>게시글 등록</h2>
-        <form action="${pageContext.request.contextPath}/addBoard" method="post">
+        <form action="/addBoard" method="post">
             <div class="textbox">
                 <label for="title">제목</label>
                 <input type="text" placeholder="title" name="title" autofocus="autofocus" required>
@@ -22,7 +22,7 @@
                 <textarea id="content" placeholder="content" name="content" required></textarea>
             </div>
             <button type="submit" class="btn">게시글 등록</button>
-            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/boardList'">목록으로</button>
+            <button type="button" class="btn" onclick="location.href='/boardList'">목록으로</button>
         </form>
     </div>
 </div>
