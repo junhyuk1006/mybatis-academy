@@ -22,7 +22,7 @@
 <div class="container">
     <div class="content-box">
             <div class="post-header">
-                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA4MzBfMTky%2FMDAxNzI0OTgzNjcwODEz.08SVabCkPDTtQftmoRmslp1GeEWGJkV5FN5niwT3940g.DCIok9hHDJOPO7oGmvK6FU6ERXz3n9Bcmkf9lrJt76gg.JPEG%2Fgenerated_%252838%2529.jpg&type=sc960_832" alt="작성자 프로필 사진" class="profile-img">
+                <img src="${board.avatarUrl}" alt="작성자 프로필 사진" class="profile-img">
                 <p class="author-name">${board.author}</p>
             </div>
             <h2>제목 ${board.title}</h2>

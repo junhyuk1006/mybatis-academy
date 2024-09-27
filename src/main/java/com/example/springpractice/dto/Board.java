@@ -12,6 +12,7 @@ public class Board {
     private String title;
     private String content;
     private String author;
+    private String avatarUrl;
     private Timestamp time;
 }
 

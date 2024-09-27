@@ -10,7 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -23,6 +31,7 @@ public class UserController {
         User user = SessionUtils.getSessionUser(session);
         if(user != null){
             model.addAttribute("user",user);
+            System.out.println("Avatar URL: " + user.getAvatar_url());
         }
         return "user/index";
     }
@@ -124,5 +133,29 @@ public class UserController {
         return "redirect:/mypage";
     }
 
+    @PostMapping("/upload-avatar")
+    public String upload(@RequestParam("avatar") MultipartFile file, HttpSession session){
+        if(!file.isEmpty()){
+            try{
+                User user = (User)session.getAttribute("user");
+                // 기존 프로필 사진 삭제
+                if (user.getAvatar_url() != null && !user.getAvatar_url().equals("/images/default.jpg")) {
+                    // 기본 이미지가 아니라면 삭제 시도
+                    Path existingFilePath = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static" + user.getAvatar_url());
+                    Files.deleteIfExists(existingFilePath);  // 기존 파일 삭제
+                }
+
+                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replaceAll(" ", "_");
+                Path path = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static/images/" + fileName);
+                Files.write(path,file.getBytes());
+
+                user.setAvatar_url("/images/" + fileName);
+                int i = service.updateUserAvatar(user.getId(),user.getAvatar_url());
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        return "redirect:/";
+    }
     // 로그 , 트랜잭션 , put
 }

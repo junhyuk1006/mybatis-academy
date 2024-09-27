@@ -25,4 +25,8 @@ public class UserService {
     public int delete(User user){
         return userMapper.deleteUser(user);
     }
+
+    public int updateUserAvatar(int id, String avatar_url) {
+        return userMapper.updateUserAvatar(id,avatar_url);
+    }
 }

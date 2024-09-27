@@ -10,6 +10,7 @@ public class PageRequest {
     private int size; // 페이지당 항목 수
     private String sort; // 정렬
     private String searchKeyword;
+    private String searchType;
 
     public PageRequest() {
         this.page = 1;

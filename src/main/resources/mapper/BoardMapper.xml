@@ -24,7 +24,14 @@
         on b.user_id = u.id
         <where>
             <if test="searchKeyword != null and searchKeyword !=''">
-                b.title like concat('%',#{searchKeyword},'%')
+                <choose>
+                    <when test="searchType == 'title'">
+                        b.title like concat('%',#{searchKeyword},'%')
+                    </when>
+                    <when test="searchType == 'author'">
+                        u.username like concat('%',#{searchKeyword},'%')
+                    </when>
+                </choose>
             </if>
         </where>
         order by
@@ -53,7 +60,8 @@
         b.title AS title,
         b.user_id AS userId,
         b.read_count AS readCount,
-        u.username AS author
+        u.username AS author,
+        u.avatar_url AS avatarUrl
         from board b join user u
         on b.user_id = u.id
         where b.id = #{id}

@@ -9,4 +9,5 @@ public interface UserMapper {
     User selectUser(User user);
     int updateUser(User user);
     int deleteUser(User user);
+    int updateUserAvatar(int id, String avatar_url);
 }

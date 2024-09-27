@@ -56,8 +56,12 @@
     <br><br>
     <div>
         <form action="/boardList" method="get">
-            <input type="text" name="searchKeyword" placeholder="검색어 입력" value="${pageRequest.searchKeyword}">
-            <button type="submit">검색</button>
+            <select name="searchType">
+                <option value="title" ${pageRequest.searchType == "title" ? "selected" : ""}>제목</option>
+                <option value="author" ${pageRequest.searchType == "author" ? "selected" : ""}>작성자</option>
+            </select>
+                <input type="text" name="searchKeyword" placeholder="검색어 입력" value="${pageRequest.searchKeyword}">
+                <button type="submit">검색</button>
         </form>
     </div>
     <table class="board-table">
